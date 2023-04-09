@@ -1,0 +1,109 @@
+<section class="page--container">
+  <div class="breadcrumbs--wrapper">
+
+    <nav
+    class="breadcrumbs-container"
+    aria-label="パンくずリスト"
+    >
+    <a href="/">ホーム</a>
+    <span class="breadcrumbs-delimiter" aria-hidden="true">
+      {% include 'icon-library', id: 'icon-chevron-down-thin' %}
+    </span>
+    <span>{{ page.title }}</span>
+    </nav>
+
+  </div>
+  <header class="blog-title as-header">
+    <div class="as-inner">
+    <h1>
+      {{ page.title }}
+    </h1>
+      {% if page.metafields.custom_fields["page_read-text"] != blank %}
+        <div class="header-text rte">
+          {{ page.metafields.custom_fields["page_read-text"] }}
+        </div>
+      {% endif %}
+    </div>
+      {% if page.metafields.custom_fields["page_slide"] != blank %}
+        <div class="slider-wrap">
+            {{ page.metafields.custom_fields["page_slide"] }}
+        </div>
+      {% endif %}
+
+      {% if page.metafields.custom_fields["page_hero"] != blank %}
+      <div class="slider-wrap hero-wrap">
+         <img src="{% include 'cf-image' with image: page.metafields.custom_fields['page_hero'], print: 'url' %}">
+      </div>
+      {% endif %}
+  </header>
+
+
+<script
+  type="application/json"
+  data-section-type="dynamic-featured-product"
+  data-section-id="{{ section.id }}"
+  data-section-data
+>
+  {
+    "settings": {
+      "cart_redirection": {{ section.settings.product_cart_redirect | json }},
+      "money_format": {{ shop.money_format | strip_html | json }},
+      "thumbnail_position": {{ section.settings.gallery_thumbnail_position | json }},
+      "gallery_video_autoplay": {{ section.settings.gallery_video_autoplay | json }},
+      "gallery_video_looping": {{ section.settings.gallery_video_looping | json }},
+      "hover_zoom": {{ hover_zoom | json }},
+      "click_to_zoom": "disabled",
+      "lazy_load": {{ settings.lazy_load | json }},
+      "enableHistory": false,
+      "section_id": {{ section.id | json }},
+      "enableSwatches": {{ settings.swatches_enable | json }}
+    },
+    "context": {
+      "product_available": {{ 'product.buttons.add_to_cart' | t | json }},
+      "product_unavailable": {{ 'product.buttons.sold_out' | t | json }}
+    },
+    "product": {% unless onboarding %}{{ json }}{% else %}false{% endunless %},
+    "models": {{ product.media | where: 'media_type', 'model' | json }}
+  }
+</script>
+
+
+   
+  
+{% if shop.metafields.custom_fields["brands"] != blank %}
+    <div class="featured-collection--page">
+
+  <div class="as-inner as-inner-full">
+    <ul class="as-flexbox as-flexbox1-2 as-flexbox1-3--lg">
+      {% for item in shop.metafields.custom_fields["brands"] %}
+    
+        
+          <li class="as-flexbox-item">
+           {% if item["image"] != blank %}
+            <figure class="as-flexbox-item-figure">
+            <div class="as-flexbox-item-figure-inner">
+              <a href="/collections/{{ item['brands_slug'] }}"></a>
+              <img src="{{ item["image"] }}">
+            </div>
+          	</figure>
+           {% endif %}
+           {% if item["brands_title"] != blank %}
+            <div class="article--excerpt-content">
+            <h2 class="as-font-subtitle">
+              <a href="/collections/{{ item['brands_slug'] }}">{{ item["brands_title"] }}</a>
+            </h2>
+          	</div>
+           {% endif %}
+          </li>
+    
+       {% endfor %}
+      </ul>
+    </div>
+     </div>
+{% endif %}
+
+
+
+</section>
+
+

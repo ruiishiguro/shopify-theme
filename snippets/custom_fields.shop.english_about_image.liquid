@@ -1,0 +1,13 @@
+{% comment %}
+  DO NOT MODIFY THIS FILE DIRECTLY. THIS FILE WILL BE OVERWRITTEN.
+  YOU CAN MODIFY THE LIQUID CODE FOR THIS CUSTOM FIELD HERE:
+  https://customfields.bonify.io/dashboard/ateliershimura.myshopify.com/globals/configure/232996/edit
+{% endcomment %}
+{% if shop.metafields.custom_fields["english_about_image"] != blank %}
+  <div class="custom-field custom-field__english-about-image custom-field__type--image">
+    <h3 class="custom-field--title">English About 画像</h3>
+    <div class="custom-field--value">  
+      {% include 'cf-image' with image: shop.metafields.custom_fields["english_about_image"], print: 'url' %}
+    </div>
+  </div>
+{% endif %}

@@ -1,0 +1,141 @@
+<section class="page--container">
+  <div class="breadcrumbs--wrapper">
+
+    <nav
+    class="breadcrumbs-container"
+    aria-label="パンくずリスト"
+    >
+    <a href="/">ホーム</a>
+    <span class="breadcrumbs-delimiter" aria-hidden="true">
+      {% include 'icon-library', id: 'icon-chevron-down-thin' %}
+    </span>
+    <a href="/pages/workshop">ワークショップ・学びの会</a>
+    <span class="breadcrumbs-delimiter" aria-hidden="true">
+      {% include 'icon-library', id: 'icon-chevron-down-thin' %}
+    </span>
+    <span>{{ page.title }}</span>
+    </nav>
+
+  </div>
+  <header class="blog-title as-header">
+    <div class="as-inner">
+    <h1>
+      {{ page.title }}
+    </h1>
+      {% if page.metafields.custom_fields["page_read-text"] != blank %}
+        <div class="header-text rte">
+          {{ page.metafields.custom_fields["page_read-text"] }}
+        </div>
+      {% endif %}
+    </div>
+      {% if page.metafields.custom_fields["page_slide"] != blank %}
+        <div class="slider-wrap">
+            {{ page.metafields.custom_fields["page_slide"] }}
+        </div>
+      {% endif %}
+
+      {% if page.metafields.custom_fields["page_hero"] != blank %}
+      <div class="slider-wrap hero-wrap">
+         <img src="{% include 'cf-image' with image: page.metafields.custom_fields['page_hero'], print: 'url' %}">
+      </div>
+      {% endif %}
+  </header>
+
+
+
+{% if page.metafields.custom_fields["workshop_permalink_text"] != blank %}
+  <div class="as-inner">
+    <div class="as-bl-wrap">
+      {% assign separator = "|###|" %}
+      {% assign ws_permalink_text_title_array = page.metafields.custom_fields["ws_permalink_text_title"] | split: separator %}
+      {% assign ws_permalink_text_body_array = page.metafields.custom_fields["ws_permalink_text_body"] | split: separator %}
+      {% assign ws_permalink_text_link_array = page.metafields.custom_fields["ws_permalink_text_link"] | split: separator %}
+      {% assign ws_permalink_text_hide_array = page.metafields.custom_fields["ws_permalink_text_hide"] | split: separator %}
+      {% assign ws_permalink_hide_array = page.metafields.custom_fields["ws_permalink_hide"] | split: separator %}
+      {% assign fc_keys = page.metafields.custom_fields["workshop_permalink_text"] | split: "," %}
+      {% for i in fc_keys %}
+        {% assign index = i | plus: 0 %}
+        <article class="as-bl-media as-bl-item {{ ws_permalink_hide_array[index] }}">
+          <div class="as-bl-media-body">
+            <h2 class="as-bl-media-body-title-l article--excerpt-title border-top">
+              {{ ws_permalink_text_title_array[index] }}
+            </h2>
+            <div class="as-bl-media-body-text article--excerpt-text rte">
+              {{ ws_permalink_text_body_array[index] }}
+              <a href="{{ ws_permalink_text_link_array[index] }}" target="_blank" class="button-secondary {{ ws_permalink_text_hide_array[index] }}">詳しく見る</a>
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% if page.metafields.custom_fields["ws_permalink_text_image"] != blank %}
+  <div class="as-inner">
+    <div class="as-bl-wrap">
+    <!-- anchor -->
+    {% if page.metafields["custom_fields"]["ws_permalink_anchor"] != blank %}
+    <aside class="side-nav">
+      <ul class="as-list-tag">
+      <li class="as-font-color-g7">目次：</li>
+      {% for item in page.metafields["custom_fields"]["ws_permalink_anchor"] %}
+        <li>
+          <a href="#{{ item['anchor_id'] }}" class="as-font-strong as-font-link">
+            {{ item["anchor_title"] }}
+          </a>
+        </li>
+      {% endfor %}
+      </ul>
+    </aside>
+    {% endif %}
+  <!-- /anchor -->
+
+      
+      {% assign separator = "|###|" %}
+      {% assign ws_pl_ti_id_array = page.metafields.custom_fields["ws_pl_ti_id"] | split: separator %}<!-- id -->
+      {% assign ws_pl_ti_title_array = page.metafields.custom_fields["ws_pl_ti_title"] | split: separator %}
+      {% assign ws_pl_ti_image_array = page.metafields.custom_fields["ws_pl_ti_image"] | split: separator %}
+      {% assign ws_pl_ti_slide_array = page.metafields.custom_fields["ws_pl_ti_slide"] | split: separator %}
+      {% assign ws_pl_ti_text_array = page.metafields.custom_fields["ws_pl_ti_text"] | split: separator %}
+      {% assign ws_pl_ti_link_array = page.metafields.custom_fields["ws_pl_ti_link"] | split: separator %}
+      {% assign ws_pl_ti_link_hide_array = page.metafields.custom_fields["ws_pl_ti_link_hide"] | split: separator %}
+      {% assign ws_pl_ti_link_block_hide_array = page.metafields.custom_fields["ws_pl_ti_link_block_hide"] | split: separator %}
+      {% assign fc_keys = page.metafields.custom_fields["ws_permalink_text_image"] | split: "," %}
+      {% for i in fc_keys %}
+        {% assign index = i | plus: 0 %}
+        <article class="as-bl-media as-bl-item {{ ws_pl_ti_link_block_hide_array[index] }}"  id="{{ ws_pl_ti_id_array[index] }}">
+          
+          <h2 class="as-bl-media-body-title-l article--excerpt-title">
+              {{ ws_pl_ti_title_array[index] }}
+          </h2>
+
+          <div class="as-bl-media-img">
+            {{ ws_pl_ti_slide_array[index] }}
+            {{ ws_pl_ti_image_array[index] }}
+          </div>
+
+          <div class="as-bl-media-body article--excerpt-content">
+            <div class="as-bl-media-body-text article--excerpt-text rte">
+              {{ ws_pl_ti_text_array[index] }}
+              <a href="{{ ws_pl_ti_link_array[index] }}" target="_blank" class="button-secondary {{ ws_pl_ti_link_hide_array[index] }}">詳しく見る</a>
+            </div>
+          </div>
+
+        </article>
+      {% endfor %}
+      </div>
+    </div>
+{% endif %}
+
+  {% if page.content != blank %}
+  <div class="as-inner">
+    <div class="as-bl-wrap">
+      <div class="as-bl-media-body-text article--excerpt-text rte">
+      {{ page.content }}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+</section>

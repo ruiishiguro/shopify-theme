@@ -1,0 +1,47 @@
+{% comment %}
+  DO NOT MODIFY THIS FILE DIRECTLY. THIS FILE WILL BE OVERWRITTEN.
+  YOU CAN MODIFY THE LIQUID CODE FOR THIS CUSTOM FIELD HERE:
+  https://customfields.bonify.io/dashboard/ateliershimura.myshopify.com/pages/configure/218658/edit
+{% endcomment %}
+{% if page.metafields.custom_fields["ws_permalink_text_image"] != blank %}
+  <div class="custom-field custom-field__ws-permalink-text-image custom-field__type--field-collection">
+    <h3 class="custom-field--title">Workshop Monthly Information</h3>
+    <div class="custom-field--value">
+      {% assign separator = "|###|" %}
+      {% assign ws_pl_ti_title_array = page.metafields.custom_fields["ws_pl_ti_title"] | split: separator %}
+      {% assign ws_pl_ti_image_array = page.metafields.custom_fields["ws_pl_ti_image"] | split: separator %}
+      {% assign ws_pl_ti_slide_array = page.metafields.custom_fields["ws_pl_ti_slide"] | split: separator %}
+      {% assign ws_pl_ti_text_array = page.metafields.custom_fields["ws_pl_ti_text"] | split: separator %}
+      {% assign ws_pl_ti_link_array = page.metafields.custom_fields["ws_pl_ti_link"] | split: separator %}
+      {% assign ws_pl_ti_link_hide_array = page.metafields.custom_fields["ws_pl_ti_link_hide"] | split: separator %}
+      {% assign ws_pl_ti_link_block_hide_array = page.metafields.custom_fields["ws_pl_ti_link_block_hide"] | split: separator %}
+      {% assign fc_keys = page.metafields.custom_fields["ws_permalink_text_image"] | split: "," %}
+      {% for i in fc_keys %}
+        {% assign index = i | plus: 0 %}
+        <div class="fc-item fc-item-- fc-index--{{ index }}">
+          <div class="fc-field field__ws-pl-ti-title">
+            {{ ws_pl_ti_title_array[index] }}
+          </div>
+          <div class="fc-field field__ws-pl-ti-image">
+            {{ ws_pl_ti_image_array[index] }}
+          </div>
+          <div class="fc-field field__ws-pl-ti-slide">
+            {{ ws_pl_ti_slide_array[index] }}
+          </div>
+          <div class="fc-field field__ws-pl-ti-text">
+            {{ ws_pl_ti_text_array[index] }}
+          </div>
+          <div class="fc-field field__ws-pl-ti-link">
+            {{ ws_pl_ti_link_array[index] }}
+          </div>
+          <div class="fc-field field__ws-pl-ti-link-hide">
+            {{ ws_pl_ti_link_hide_array[index] }}
+          </div>
+          <div class="fc-field field__ws-pl-ti-link-block-hide">
+            {{ ws_pl_ti_link_block_hide_array[index] }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

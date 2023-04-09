@@ -1,0 +1,36 @@
+<section class="page--container">
+  <div class="breadcrumbs--wrapper">
+    {% include 'breadcrumbs' %}
+  </div>
+  <header class="blog-title as-header">
+    <div class="as-inner">
+    <h1>
+      {{ page.title }}
+    </h1>
+      {% if page.metafields.custom_fields["page_read-text"] != blank %}
+        <div class="header-text rte">
+          {{ page.metafields.custom_fields["page_read-text"] }}
+        </div>
+      {% endif %}
+    </div>
+      {% if page.metafields.custom_fields["page_slide"] != blank %}
+        <div class="slider-wrap">
+            {{ page.metafields.custom_fields["page_slide"] }}
+        </div>
+      {% endif %}
+
+      {% if page.metafields.custom_fields["page_hero"] != blank %}
+      <div class="slider-wrap hero-wrap">
+         <img src="{% include 'cf-image' with image: page.metafields.custom_fields['page_hero'], print: 'url' %}">
+      </div>
+      {% endif %}
+  </header>
+
+
+  {% if page.content != blank %}
+  <div class="as-inner as-inner-full">
+      {{ page.content }}
+  </div>
+  {% endif %}
+
+</section>

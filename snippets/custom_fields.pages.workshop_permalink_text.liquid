@@ -1,0 +1,39 @@
+{% comment %}
+  DO NOT MODIFY THIS FILE DIRECTLY. THIS FILE WILL BE OVERWRITTEN.
+  YOU CAN MODIFY THE LIQUID CODE FOR THIS CUSTOM FIELD HERE:
+  https://customfields.bonify.io/dashboard/ateliershimura.myshopify.com/pages/configure/218653/edit
+{% endcomment %}
+{% if page.metafields.custom_fields["workshop_permalink_text"] != blank %}
+  <div class="custom-field custom-field__workshop-permalink-text custom-field__type--field-collection">
+    <h3 class="custom-field--title">Workshop Outline</h3>
+    <div class="custom-field--value">
+      {% assign separator = "|###|" %}
+      {% assign ws_permalink_text_title_array = page.metafields.custom_fields["ws_permalink_text_title"] | split: separator %}
+      {% assign ws_permalink_text_body_array = page.metafields.custom_fields["ws_permalink_text_body"] | split: separator %}
+      {% assign ws_permalink_text_link_array = page.metafields.custom_fields["ws_permalink_text_link"] | split: separator %}
+      {% assign ws_permalink_text_hide_array = page.metafields.custom_fields["ws_permalink_text_hide"] | split: separator %}
+      {% assign ws_permalink_hide_array = page.metafields.custom_fields["ws_permalink_hide"] | split: separator %}
+      {% assign fc_keys = page.metafields.custom_fields["workshop_permalink_text"] | split: "," %}
+      {% for i in fc_keys %}
+        {% assign index = i | plus: 0 %}
+        <div class="fc-item fc-item-- fc-index--{{ index }}">
+          <div class="fc-field field__ws-permalink-text-title">
+            {{ ws_permalink_text_title_array[index] }}
+          </div>
+          <div class="fc-field field__ws-permalink-text-body">
+            {{ ws_permalink_text_body_array[index] }}
+          </div>
+          <div class="fc-field field__ws-permalink-text-link">
+            {{ ws_permalink_text_link_array[index] }}
+          </div>
+          <div class="fc-field field__ws-permalink-text-hide">
+            {{ ws_permalink_text_hide_array[index] }}
+          </div>
+          <div class="fc-field field__ws-permalink-hide">
+            {{ ws_permalink_hide_array[index] }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

@@ -1,25 +1,56 @@
-<div id="template" class="small-form" data-cc-animate>
-  <div class="template_header">
-    <h2 class="title">{{ 'customer.activate_account.title' | t }}</h2>
-    <p class="note">{{ 'customer.activate_account.subtext' | t }}</p>
-  </div>
+<section
+  class="account-page account-page-activate"
+  data-template-account>
+  <header class="account-page-masthead">
+    <h1 class="account-page-title">
+      {{ 'customers.activate_account.title' | t }}
+    </h1>
+  </header>
 
-  {% form 'activate_customer_password' %}
-    {{ form.errors | default_errors }}
+  <article class="account-page-content">
+    {% form 'activate_customer_password' %}
 
-    <div id="password" class="input-row">
-      <label class="large" for="password">{{ 'customer.activate_account.password' | t }}</label>
-      <input type="password" value="" name="customer[password]" id="customer_password" class="large password" size="16" />
-    </div>
-    <div id="password_confirm" class="input-row">
-      <label class="large" for="password_confirmation">{{ 'customer.activate_account.password_confirm' | t }}</label>
-      <input type="password" value="" name="customer[password_confirmation]" id="customer_password_confirmation" class="large password" size="16" />
-    </div>
-    <div class="action_bottom">
-      <p>
-        <button class="btn" type="submit">{{ 'customer.activate_account.submit' | t }}</button>
-      </p>
-      <button type="submit" class="cancel" name="decline" id="customer_decline">{{ 'customer.activate_account.cancel' | t }}</button>
-    </div>
-  {% endform %}
-</div>
+      {% if form.errors != blank  %}
+        <div class="account-message message--error">
+          {{ form.errors | default_errors }}
+        </div>
+      {% endif %}
+
+      <div class="form-field">
+        <input
+          class="form-field-input form-field-text"
+          id="password"
+          name="customer[password]"
+          type="password">
+        <label
+          class="form-field-title"
+          for="password">
+          {{ 'customers.forms.password' | t }}
+        </label>
+      </div>
+
+      <div class="form-field">
+        <input
+          class="form-field-input form-field-text"
+          id="password_repeat"
+          name="customer[password_confirmation]"
+          type="password">
+        <label
+          class="form-field-title"
+          for="password_repeat">
+          {{ 'customers.forms.repeat_password' | t }}
+        </label>
+      </div>
+
+      <div class="form-action-row">
+        <button class="button-primary" type="submit">
+          {{ 'customers.activate_account.submit' | t }}
+        </button>
+
+        <a class="button-secondary" href="{{ routes.root_url }}">
+          {{ 'customers.activate_account.decline_activation' | t }}
+        </a>
+      </div>
+    {% endform %}
+  </article>
+</section>

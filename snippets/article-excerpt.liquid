@@ -1,0 +1,543 @@
+{% comment %}
+  @param section Object
+         Required section containing settings
+
+  @param onboarding Bool
+         Triggers onboarding helper class and functionality
+
+  @param article Object
+{% endcomment %}
+
+{%- capture excerpt_class -%}
+  article--excerpt-wrapper
+  {% unless article.image or onboarding %}
+    article--excerpt-wrapper--centered
+  {% endunless %}
+{%- endcapture -%}
+
+<li class="{{ excerpt_class | strip_newlines }} {% if blog.handle  == 'news' %}article--excerpt-wrapper-full article--excerpt-wrapper-news{% endif %}{% if blog.handle  == 'glossaries' %}article--excerpt-wrapper-full{% endif %}{% if blog.handle  == 'clientwork' %}article--excerpt-wrapper-full{% endif %}">
+<article class="article-list-item">
+
+  {% unless onboarding %}
+
+
+    {% if template == 'index' %}<!-- index -->
+      {% if article.image %}<!-- image -->
+        {% if blog.handle  == 'news' %}<!-- news -->
+			<a
+            class="article--excerpt-image" href="{{ article.url }}"
+            {%
+              include 'rimg',
+              img: article.image,
+              size: '700x700',
+              crop: 'center',
+              lazy: settings.lazy_load,
+              background: true
+            %}
+          >
+          {%
+            include 'rimg',
+            img: article.image,
+            size: '700x700',
+            crop: 'center',
+            lazy: settings.lazy_load,
+            canvas: settings.lazy_load
+          %}
+          </a>
+        {% else %}<!-- elsenews -->
+          <a
+            class="article--excerpt-image" href="{{ article.url }}"
+            {%
+              include 'rimg',
+              img: article.image,
+              size: '700x700',
+              crop: 'center',
+              lazy: settings.lazy_load,
+              background: true
+            %}
+          >
+          {%
+            include 'rimg',
+            img: article.image,
+            size: '700x700',
+            crop: 'center',
+            lazy: settings.lazy_load,
+            canvas: settings.lazy_load
+          %}
+          </a>
+        {% endif %}<!-- /news -->
+      {% endif %}<!-- /image -->
+
+    {% else %}<!-- else index -->
+
+      {% if article.image %}<!-- image -->
+
+        {% if blog.handle  == 'news' %}<!-- news -->
+        {% endif %}<!-- /news -->
+
+        {% if blog.handle  == 'glossaries' %}<!-- glossariess -->
+        {% endif %}<!-- /glossaries -->
+
+        {% if blog.handle  == 'gallery' %}<!-- gallery -->
+          <a
+            class="article--excerpt-image" href="{{ article.url }}"
+            {%
+              include 'rimg',
+              img: article.image,
+              size: '700x700',
+              crop: 'center',
+              lazy: settings.lazy_load,
+              background: true
+            %}
+          >
+          {%
+            include 'rimg',
+            img: article.image,
+            size: '700x700',
+            crop: 'center',
+            lazy: settings.lazy_load,
+            canvas: settings.lazy_load
+          %}
+
+          {% if article.tags != blank %}<!-- article.tags -->
+            {% for tag in article.tags %}
+              <div class="tag-label {% if tag contains '開催中' %}tag-label-active{% endif %}{% if tag contains '開催予定' %}tag-label-active tag-label-secondary{% endif %}{% if tag contains '開催前' %}tag-label-active tag-label-secondary{% endif %}">
+                {{ tag }}{% unless forloop.last %},{% endunless %}
+              </div>
+            {% endfor %}
+          {% endif %}<!-- /article.tags -->
+          </a>
+
+          {% endif %}<!-- /gallery  -->
+
+          {% if blog.handle  == 'store' %}<!-- store -->
+          <a
+            class="article--excerpt-image" href="{{ article.url }}"
+            {%
+              include 'rimg',
+              img: article.image,
+              size: '700x700',
+              crop: 'center',
+              lazy: settings.lazy_load,
+              background: true
+            %}
+          >
+          {%
+            include 'rimg',
+            img: article.image,
+            size: '700x700',
+            crop: 'center',
+            lazy: settings.lazy_load,
+            canvas: settings.lazy_load
+          %}
+          </a>
+          {% endif %}<!-- /store  -->
+
+          {% if blog.handle  == 'en-store' %}<!-- en-store -->
+          <a
+            class="article--excerpt-image" href="{{ article.url }}"
+            {%
+              include 'rimg',
+              img: article.image,
+              size: '700x700',
+              crop: 'center',
+              lazy: settings.lazy_load,
+              background: true
+            %}
+          >
+          {%
+            include 'rimg',
+            img: article.image,
+            size: '700x700',
+            crop: 'center',
+            lazy: settings.lazy_load,
+            canvas: settings.lazy_load
+          %}
+          </a>
+          {% endif %}<!-- /en-store  -->
+
+          {% if blog.handle  == 'column' %}<!-- column -->
+          <a
+            class="article--excerpt-image" href="{{ article.url }}"
+            {%
+              include 'rimg',
+              img: article.image,
+              size: '700x700',
+              crop: 'center',
+              lazy: settings.lazy_load,
+              background: true
+            %}
+          >
+          {%
+            include 'rimg',
+            img: article.image,
+            size: '700x700',
+            crop: 'center',
+            lazy: settings.lazy_load,
+            canvas: settings.lazy_load
+          %}
+          </a>
+          {% endif %}<!-- /column  -->
+
+          {% if blog.handle  == 'en-stories' %}<!-- en-stories -->
+          <a
+            class="article--excerpt-image" href="{{ article.url }}"
+            {%
+              include 'rimg',
+              img: article.image,
+              size: '700x700',
+              crop: 'center',
+              lazy: settings.lazy_load,
+              background: true
+            %}
+          >
+          {%
+            include 'rimg',
+            img: article.image,
+            size: '700x700',
+            crop: 'center',
+            lazy: settings.lazy_load,
+            canvas: settings.lazy_load
+          %}
+          </a>
+          {% endif %}<!-- /en-stories -->
+        
+      {% endif %}<!-- /image -->
+    {% endif %}<!-- /index -->
+
+    <div class="article--excerpt-content">
+      {% if section.settings.show_date or section.settings.show_author %}
+        <div class="article--excerpt-meta as-font-subtitle">
+          {% if section.settings.show_date %}
+            <span class="article--excerpt-meta-item">
+              {{ article.published_at | date: format: 'month_day_year' }}
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if blog.handle  == 'news' %}<div class="article-meta-wrap"><!-- article-meta-wrap -->{% endif %}<!-- /news -->
+
+      {% if template == 'index' %}<!-- index -->
+      {% else %}<!-- else index -->
+
+        {% if article.tags != blank %}<!-- article.tags -->
+          {% if blog.handle  == 'glossaries' %}<!-- glossaries -->
+          {% else %}<!-- glossaries -->
+          {% endif %}<!-- /glossaries -->
+        {% endif %}<!-- /article.tags -->
+
+      {% endif %}<!-- /index -->
+
+      {% if template == 'index' %}<!-- index -->
+        <h2 class="article--excerpt-title as-font-subtitle">
+          <a href="{{ article.url }}">
+            {{ article.title }}
+            {% if article.metafields.custom_fields["blog_subtitle"] != blank %}
+              <br />
+                  {{ article.metafields.custom_fields["blog_subtitle"] }}
+            {% endif %}
+          </a>
+        </h2>
+      {% else %}<!-- else index -->
+
+        {% if blog.handle  == 'news' %}<!-- news -->
+          <span class="article--excerpt-meta-item article--excerpt-meta-item-date as-font-color-g7 as-font-subtitle">
+            {{ article.published_at | date: "%Y年%m月%d日" }}
+          </span>
+        </div><!-- /article-meta-wrap -->
+          <h2 class="as-bl-media-body-title-l">
+            <a href="{{ article.url }}">
+              {{ article.title }}
+              {% if article.metafields.custom_fields["blog_subtitle"] != blank %}
+                <br />
+                    {{ article.metafields.custom_fields["blog_subtitle"] }}
+              {% endif %}
+            </a>
+          </h2>
+        {% endif %}<!-- /news -->
+
+        {% if blog.handle  == 'glossaries' %}<!-- glossaries -->
+
+          <h2 class="as-bl-media-body-title-l">
+              {{ article.title }}
+          </h2>
+          <div class="article--excerpt-text rte">
+            {{ article.content | strip_html }}
+          </div>
+
+        {% endif %}<!-- /glossaries -->
+
+        {% if blog.handle  == 'clientwork' %}<!-- clientwork -->
+          {% if article.metafields.custom_fields["blog_slide"] != blank %}<!-- slide -->
+          <div class="as-bl-media-img">
+            {{ article.metafields.custom_fields["blog_slide"] }}
+            {% if article.metafields.custom_fields["slide_credit"] != blank %}
+              <p>
+                {{ article.metafields.custom_fields["slide_credit"] }}
+              </p>
+            {% endif %}
+          </div>
+      		{%- else -%}
+      			<div class="as-bl-media-img"><!-- single -->
+                  {% include 'cf-image' with image: article.metafields.custom_fields["blog_hero"] %}
+                  {% if article.metafields.custom_fields["slide_credit"] != blank %}
+                    <p>
+                      {{ article.metafields.custom_fields["slide_credit"] }}
+                    </p>
+                  {% endif %}
+                </div><!-- /single -->
+          {% endif %}<!-- /slide -->
+
+          <h2 class="as-bl-media-body-title-l">
+            <a href="{{ article.url }}">
+              {{ article.title }}
+            </a>
+          </h2>
+          <div class="article--excerpt-text rte">
+            {{ article.content }}
+            <p><a href="https://www.atelier-shimura.jp/pages/contact" target="_blank" class="btn-link {{ ws_pl_ti_link_hide_array[index] }}">お問い合わせ</a></p>
+          </div>
+
+        {% endif %}<!-- /clientwork -->
+
+        {% if blog.handle  == 'gallery' %}<!-- gallery -->
+          <h2 class="article--excerpt-title as-font-subtitle">
+            <a href="{{ article.url }}">
+              {{ article.title }}
+            </a>
+          </h2>
+          <div class="article--excerpt-text rte as-font-caption as-font-color-g7">
+            {%- if article.excerpt == blank -%}
+              <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+            {%- else -%}
+              {{ article.excerpt }}
+            {%- endif -%}
+          </div>
+        {% endif %}<!-- /gallery -->
+
+        {% if blog.handle  == 'store' %}<!-- store -->
+          <h2 class="article--excerpt-title as-font-subtitle">
+            <a href="{{ article.url }}">
+              {{ article.title }}
+            </a>
+          </h2>
+          <div class="article--excerpt-text rte rte-shop">
+            {%- if article.excerpt == blank -%}
+              <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+            {%- else -%}
+              {{ article.excerpt }}
+            {%- endif -%}
+          </div>
+
+      
+        {% endif %}<!-- /store -->
+
+        {% if blog.handle  == 'en-store' %}<!-- en-store -->
+          <h2 class="article--excerpt-title as-font-subtitle">
+            <a href="{{ article.url }}">
+              {{ article.title }}
+            </a>
+          </h2>
+          <div class="article--excerpt-text rte">
+            {%- if article.excerpt == blank -%}
+              <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+            {%- else -%}
+              {{ article.excerpt }}
+            {%- endif -%}
+          </div>
+
+        {% endif %}<!-- /en-store -->
+
+        {% if blog.handle  == 'column' %}<!-- column -->
+          <h2 class="article--excerpt-title as-font-subtitle">
+            <a href="{{ article.url }}">
+              {{ article.title }}
+              {% if article.metafields.custom_fields["blog_subtitle"] != blank %}
+                <br />
+                    {{ article.metafields.custom_fields["blog_subtitle"] }}
+              {% endif %}
+            </a>
+          </h2>
+          <!-- div class="article--excerpt-text rte">
+            {%- if article.excerpt == blank -%}
+              <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+            {%- else -%}
+              {{ article.excerpt }}
+            {%- endif -%}
+          </div -->
+        {% endif %}<!-- /column -->
+
+        {% if blog.handle  == 'en-stories' %}<!-- en-stories -->
+          <h2 class="article--excerpt-title as-font-subtitle">
+            <a href="{{ article.url }}">
+              {{ article.title }}
+              {% if article.metafields.custom_fields["blog_subtitle"] != blank %}
+                <br />
+                    {{ article.metafields.custom_fields["blog_subtitle"] }}
+              {% endif %}
+            </a>
+          </h2>
+        {% endif %}<!-- /en-stories -->
+
+
+      {% endif %}<!-- /index -->
+
+      {% if template == 'index' %}<!-- index -->
+      {% else %}<!-- else index -->
+        {% if article.image %}
+
+          {% if blog.handle  == 'news' %}<!-- news -->
+            <figure class="bl-item-img-wrap">
+              <a href="{{ article.url }}">
+                <img src="{{ article.image.src | img_url: '1024x' }}">
+              </a>
+            </figure>
+           {% endif %}<!-- /news -->
+
+          {% if blog.handle  == 'glossaries' %}<!-- else if glossaries -->
+            <figure class="bl-item-img-wrap">
+              <img src="{{ article.image.src | img_url: '1024x' }}">
+            </figure>
+          {% endif %}<!-- /glossaries -->
+
+        {% endif %}
+      {% endif %}<!-- /index -->
+
+      {%- if section.settings.show_excerpt -%}
+        {% if template == 'index' %}<!-- index -->
+          <div class="article--excerpt-text rte">
+            {%- if article.excerpt == blank -%}
+              <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+            {%- else -%}
+              {{ article.excerpt }}
+            {%- endif -%}
+          </div>
+        {% else %}<!-- else index -->
+
+          {% if blog.handle  == 'news' %}<!-- news -->
+          {% endif %}<!-- /news -->
+
+          {% if blog.handlee  == 'glossaries' %}<!--glossaries -->
+            <div class="article--excerpt-text blog--excerpt-text rte">
+              {%- if article.excerpt == blank -%}
+                <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+              {%- else -%}
+                {{ article.excerpt }}
+              {%- endif -%}
+            </div>
+          {% endif %}<!-- /glossaries -->
+
+          {% if blog.handlee  == 'gallery' %}<!-- gallery -->
+            <div class="article--excerpt-text rte">
+              {%- if article.excerpt == blank -%}
+                <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+              {%- else -%}
+                {{ article.excerpt }}
+              {%- endif -%}
+            </div>
+          {% endif %}<!-- /gallery -->
+
+          {% if blog.handlee  == 'store' %}<!-- store -->
+            <div class="article--excerpt-text rte rte-shop">
+              {%- if article.excerpt == blank -%}
+                <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+              {%- else -%}
+                {{ article.excerpt }}
+              {%- endif -%}
+            </div>
+
+          {% endif %}<!-- /store -->
+
+          {% if blog.handlee  == 'en-store' %}<!-- en-store -->
+            <div class="article--excerpt-text rte">
+              {%- if article.excerpt == blank -%}
+                <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+              {%- else -%}
+                {{ article.excerpt }}
+              {%- endif -%}
+            </div>
+          {% endif %}<!-- /en-store -->
+
+          {% if blog.handlee  == 'column' %}<!-- column -->
+            <div class="article--excerpt-text  rte">
+              {%- if article.excerpt == blank -%}
+                <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+              {%- else -%}
+                {{ article.excerpt }}
+              {%- endif -%}
+            </div>
+          {% endif %}<!-- /column -->
+
+          {% if blog.handlee  == 'en-stories' %}<!-- en-stories -->
+            <div class="article--excerpt-text  rte">
+              {%- if article.excerpt == blank -%}
+                <p>{{ article.content | strip_html | truncatewords: 40 }}</p>
+              {%- else -%}
+                {{ article.excerpt }}
+              {%- endif -%}
+            </div>
+          {% endif %}<!-- /en-stories -->
+
+        {% endif %}<!-- /index -->
+
+      {%- endif -%}
+
+      <a class="article--excerpt-readmore" href="{{ article.url }}" aria-label="read {{ article.title }}">
+        {{ 'blog.general.read_more' | t }}
+
+        <span class="article--excerpt-readmore--icon">
+          {% include 'icon-library', id: 'icon-chevron-down-small' %}
+        </span>
+      </a>
+    </div>
+  {% else %}
+    {%- capture background_image -%}
+      {%-
+        include 'placeholder_svg_uri'
+        placeholder: 'image'
+       -%}
+    {%- endcapture -%}
+    <a
+      class="article--excerpt-image placeholder--image"
+      href="{{ article.url }}"
+      style="background-image: url('{{ background_image | strip_newlines }}');"
+    >
+    </a>
+
+    <div class="article--excerpt-content">
+      {% if section.settings.show_date or section.settings.show_author %}
+        <div class="article--excerpt-meta">
+          {% if section.settings.show_date %}
+            <span class="article--excerpt-meta-item">
+              {{ 'now' | date: format: 'month_day_year' }}
+            </span>
+          {% endif %}
+
+          {% if section.settings.show_author %}
+            <span class="article--excerpt-meta-item">
+              {{ 'onboarding.article.author_name' | t }}
+            </span>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <h2 class="article--excerpt-title">
+        <a href="#">
+          {{ 'onboarding.article.title' | t }}
+        </a>
+      </h2>
+
+      <a class="article--excerpt-readmore" href="#">
+        {{ 'blog.general.read_more' | t }}
+
+        <span class="article--excerpt-readmore--icon">
+          {% include 'icon-library', id: 'icon-chevron-down-small' %}
+        </span>
+      </a>
+    </div>
+
+  {% endunless %}
+
+</article>
+</li>
