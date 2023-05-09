@@ -1,0 +1,19 @@
+{%- assign w_continue = 'no' -%}
+{% assign wlmHideItem_Product = false %}{% assign wlmLockedTags174652 = false %}
+{% for tag in customer.tags %}
+{% if tag == 'riso' %}{% assign wlmLockedTags174652 = true %}{% endif %}
+{% endfor %}
+
+{% if wlm-product.id == 6830098612304 %} 
+{% unless customer %}
+{% assign  wlmHideItem_Product = true %}
+{% else %}
+{% unless wlmLockedTags174652 %}{% assign  wlmHideItem_Product = true %}{% endunless %}
+{% endunless %}
+{% endif %}
+
+
+
+{% if wlmHideItem_Product == true %}{% continue %}{% endif %}
+
+{%- if wlm_is_render == 'yes' -%}{{- w_continue -}}{%-endif-%}
